@@ -1,0 +1,79 @@
+### Variables de entorno
+@baseUrl = http://localhost:5272
+@xsrfToken = {{ antiforgery.response.body.token }}
+
+### 1. Obtener token antiforgery (XSRF)
+# Este endpoint setea dos cookies:
+#   - auth_app_antiforgery (HttpOnly, la valida el servidor)
+#   - XSRF-TOKEN (legible desde JS, Angular la lee y la envía como header)
+# La respuesta incluye el token en el body para usarlo manualmente.
+GET {{baseUrl}}/api/antiforgery/token
+Accept: application/json
+
+### 2. Login con credenciales válidas
+# Requiere el header X-XSRF-TOKEN y las cookies del paso 1.
+# Devuelve 200 + datos del usuario. Setea cookie auth_app_session (HttpOnly).
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+X-XSRF-TOKEN: {{xsrfToken}}
+
+{
+  "email": "demo@example.com",
+  "password": "Password123!"
+}
+
+### 3. Login con credenciales inválidas
+# Devuelve 401.
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+X-XSRF-TOKEN: {{xsrfToken}}
+
+{
+  "email": "demo@example.com",
+  "password": "incorrecta"
+}
+
+### 4. Login con campos vacíos
+# Devuelve 400 (validación).
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+X-XSRF-TOKEN: {{xsrfToken}}
+
+{
+  "email": "",
+  "password": ""
+}
+
+### 5. Obtener usuario actual (requiere sesión)
+# Devuelve 200 con datos del usuario si hay cookie válida.
+# Devuelve 401 si no hay sesión.
+GET {{baseUrl}}/api/auth/me
+Accept: application/json
+
+### 6. Logout (requiere sesión)
+# Devuelve 200. Elimina la cookie auth_app_session.
+POST {{baseUrl}}/api/auth/logout
+Content-Type: application/json
+X-XSRF-TOKEN: {{xsrfToken}}
+
+{}
+
+### 7. Endpoint de administrador (requiere rol admin)
+# Con sesión de demo@example.com (rol: user) -> 403.
+# Con sesión de admin@example.com (rol: admin) -> 200.
+GET {{baseUrl}}/api/auth/admin
+Accept: application/json
+
+### 8. Login como administrador
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+X-XSRF-TOKEN: {{xsrfToken}}
+
+{
+  "email": "admin@example.com",
+  "password": "Admin123!"
+}
+
+### 9. Probar endpoint admin con sesión de admin
+GET {{baseUrl}}/api/auth/admin
+Accept: application/json

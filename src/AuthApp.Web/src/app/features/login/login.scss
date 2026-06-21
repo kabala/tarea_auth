@@ -1,0 +1,130 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1rem;
+  background: #f0f2f5;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+}
+
+.login-title {
+  margin: 0 0 0.25rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+  text-align: center;
+  color: #1a1a2e;
+}
+
+.login-subtitle {
+  margin: 0 0 1.5rem;
+  text-align: center;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.form-field {
+  margin-bottom: 1.25rem;
+
+  label {
+    display: block;
+    margin-bottom: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #343a40;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.625rem 0.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    font-size: 0.9375rem;
+    transition: border-color 0.15s, box-shadow 0.15s;
+
+    &:focus {
+      outline: none;
+      border-color: #4263eb;
+      box-shadow: 0 0 0 3px rgba(66, 99, 235, 0.15);
+    }
+
+    &.ng-touched.ng-invalid {
+      border-color: #e03131;
+    }
+  }
+}
+
+.field-error {
+  display: block;
+  margin-top: 0.25rem;
+  color: #e03131;
+  font-size: 0.8125rem;
+}
+
+.alert {
+  padding: 0.625rem 0.875rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+}
+
+.alert-error {
+  background: #fff5f5;
+  color: #c92a2a;
+  border: 1px solid #ffc9c9;
+}
+
+.alert-warning {
+  background: #fff9db;
+  color: #e67700;
+  border: 1px solid #ffe3b3;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 0.625rem;
+  border: none;
+  border-radius: 8px;
+  background: #4263eb;
+  color: #fff;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+
+  &:hover:not(:disabled) {
+    background: #3b5bdb;
+  }
+
+  &:disabled {
+    background: #adb5bd;
+    cursor: not-allowed;
+  }
+}
+
+.demo-hint {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #e9ecef;
+  font-size: 0.8125rem;
+  color: #6c757d;
+
+  p {
+    margin: 0.25rem 0;
+  }
+
+  code {
+    background: #f1f3f5;
+    padding: 0.125rem 0.375rem;
+    border-radius: 4px;
+    font-family: monospace;
+  }
+}

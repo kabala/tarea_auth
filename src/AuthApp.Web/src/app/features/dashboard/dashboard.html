@@ -1,0 +1,59 @@
+<div class="dashboard-container">
+  <header class="dashboard-header">
+    <h1>Dashboard</h1>
+    <button
+      type="button"
+      class="btn-logout"
+      (click)="logout()"
+      [disabled]="loggingOut()"
+    >
+      {{ loggingOut() ? 'Cerrando...' : 'Cerrar sesión' }}
+    </button>
+  </header>
+
+  @if (forbidden()) {
+    <div class="alert alert-error" role="alert">
+      No tienes permisos para acceder a esa sección.
+    </div>
+  }
+
+  @if (user()) {
+    <main class="dashboard-content">
+      <section class="user-card">
+        <h2>Información del usuario</h2>
+        <dl>
+          <dt>Nombre</dt>
+          <dd>{{ user()?.fullName }}</dd>
+          <dt>Correo</dt>
+          <dd>{{ user()?.email }}</dd>
+          <dt>Rol</dt>
+          <dd>{{ user()?.role }}</dd>
+        </dl>
+      </section>
+
+      <section class="admin-card">
+        <h2>Sección de administrador</h2>
+        <p class="muted">
+          Esta sección demuestra el código HTTP 403. Solo los usuarios con rol
+          "admin" pueden acceder.
+        </p>
+        <button type="button" class="btn-secondary" (click)="loadAdminData()">
+          Obtener datos de administrador
+        </button>
+
+        @if (adminMessage()) {
+          <div class="alert alert-success" role="status">
+            {{ adminMessage() }}
+          </div>
+        }
+        @if (adminError()) {
+          <div class="alert alert-error" role="alert">
+            {{ adminError() }}
+          </div>
+        }
+      </section>
+    </main>
+  } @else {
+    <div class="loading">Cargando...</div>
+  }
+</div>

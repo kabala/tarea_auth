@@ -1,0 +1,39 @@
+## .NET
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.userprefs
+[Bb]in/
+[Oo]bj/
+*.dll
+*.pdb
+*.cache
+*.tgz
+
+## User secrets
+secrets.json
+appsettings.*.Local.json
+
+## Visual Studio
+.vs/
+*.vspscc
+*.vssscc
+
+## Node / Angular
+node_modules/
+dist/
+.angular/cache/
+*.log
+npm-debug.log*
+
+## OS
+Thumbs.db
+.DS_Store
+
+## SQLite (tests)
+*.db
+*.db-shm
+*.db-wal
